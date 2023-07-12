@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import TodoTable from '../components/TodoTable';
 import TodoForm from '../components/TodoForm';
+import TodoFormFunctional from '../components/TodoForm.functional';
 
 class Homepage extends React.Component {
     constructor(props) {
@@ -31,6 +32,12 @@ class Homepage extends React.Component {
         });
     }
 
+    handleCloseModal = () => {
+        this.setState({
+            showAddTodoModal: false
+        });
+    }
+
     saveNewTodo = (todoDesc, todoDeadline) => {
         let newTodo = {
             description: todoDesc,
@@ -44,6 +51,25 @@ class Homepage extends React.Component {
         });
     }
 
+    deleteTodo = (index) => {
+        let currTodos = [...this.state.todos];
+        currTodos.splice(index, 1);
+        this.setState({
+            todos: currTodos
+        });
+    }
+
+    markTodoAsDone = (index) => {
+        let currTodos = [...this.state.todos];
+        let todo = currTodos[index];
+        todo.isDone = true;
+        currTodos[index] = todo;
+
+        this.setState({
+            todos: currTodos
+        });
+    }
+
     render() {
         return (
             <div>
@@ -51,11 +77,14 @@ class Homepage extends React.Component {
                     <Header />
                 </div>
                 <div className='todolist-section'>
-                    <TodoTable todos={this.state.todos} handleBtnAddTodoClick={this.handleBtnAddTodoClick} />
+                    <TodoTable todos={this.state.todos} handleBtnAddTodoClick={this.handleBtnAddTodoClick}
+                    markTodoAsDone={this.markTodoAsDone}
+                    deleteTodo={this.deleteTodo} />
                 </div>
-                <TodoForm 
+                <TodoFormFunctional 
                     show={this.state.showAddTodoModal}
                     saveNewTodo={this.saveNewTodo}
+                    handleCloseModal={this.handleCloseModal}
                 />
             </div>
         )

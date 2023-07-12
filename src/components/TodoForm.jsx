@@ -15,11 +15,12 @@ class TodoForm extends React.Component {
         let todoDeadline = e.target.inputTodoDeadline.value;
 
         this.props.saveNewTodo(todoDescription, todoDeadline);
+        this.props.handleCloseModal();
     }
 
     render() {
         return (
-            <Modal show={this.props.show} >
+            <Modal show={this.props.show} onHide={this.props.handleCloseModal}>
                 <Form onSubmit={this.handleFormSubmit}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add New Todo</Modal.Title>
@@ -35,7 +36,7 @@ class TodoForm extends React.Component {
                         </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary">
+                    <Button onClick={this.props.handleCloseModal} variant="secondary">
                         Close
                     </Button>
                     <Button type="submit" variant="primary">
