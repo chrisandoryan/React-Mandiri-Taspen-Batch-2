@@ -8,32 +8,41 @@ class TodoForm extends React.Component {
         super(props);
     }
 
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+
+        let todoDescription = e.target.inputTodoDescription.value;
+        let todoDeadline = e.target.inputTodoDeadline.value;
+
+        this.props.saveNewTodo(todoDescription, todoDeadline);
+    }
+
     render() {
         return (
-            <Modal show={false} >
+            <Modal show={this.props.show} >
+                <Form onSubmit={this.handleFormSubmit}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add New Todo</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>What do you want to do?</Form.Label>
-                            <Form.Control type="text" placeholder="e.g., play with children" />
+                            <Form.Control type="text" name="inputTodoDescription" placeholder="e.g., play with children" />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Due Date</Form.Label>
-                            <Form.Control type="date"></Form.Control>
+                            <Form.Control type="date" name="inputTodoDeadline" ></Form.Control>
                         </Form.Group>
-                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary">
                         Close
                     </Button>
-                    <Button variant="primary">
+                    <Button type="submit" variant="primary">
                         Save Changes
                     </Button>
                 </Modal.Footer>
+            </Form>
             </Modal>
         );
     }

@@ -19,7 +19,12 @@ function Routing() {
 
 function App() {
   return (
-    <Routing></Routing>
+    <div>
+      <head></head>
+      <body>
+        <Routing></Routing>
+      </body>
+    </div>
   );
 }
 
