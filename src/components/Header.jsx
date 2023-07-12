@@ -12,7 +12,7 @@ class Header extends React.Component {
     componentDidMount() {
         console.log("componentDidMount() is called...");
         let setIntervalId = setInterval(() => {
-            console.log("Ticking...");
+            // console.log("Ticking...");
             this.setState({
                 currDateTime: new Date()
             });
@@ -24,9 +24,9 @@ class Header extends React.Component {
     }
 
     componentDidUpdate(prevState, prevProps) {
-        console.log("componentDidUpdate() is called...");
-        console.log(prevState);
-        console.log(prevProps);
+        // console.log("componentDidUpdate() is called...");
+        // console.log(prevState);
+        // console.log(prevProps);
     }
 
     componentWillUnmount() {

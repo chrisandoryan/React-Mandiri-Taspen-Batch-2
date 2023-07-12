@@ -3,6 +3,8 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+import styles from '../styles/todotable.module.css';
+
 class TodoTable extends React.Component {
     constructor(props) {
         super(props);
@@ -10,13 +12,13 @@ class TodoTable extends React.Component {
 
     render() {
         return (
-            <Table striped bordered hover>
+            <Table striped bordered hover className={styles['todo-table']}>
                 <tbody>
                     {
                         this.props.todos.map((todo, index) => {
                             return (
                                 <tr>
-                                    <td>
+                                    <td className={styles['todo-checkbox']}>
                                         <Form.Check type="checkbox" onClick={(e) => {this.props.markTodoAsDone(index)}}/>
                                     </td>
                                     {
@@ -26,15 +28,15 @@ class TodoTable extends React.Component {
                                             <td>{todo.description}</td>
                                         )
                                     }
-                                    <td>
+                                    <td className={styles['action-cell']}>
                                         {
                                             todo.isDone ? (
                                                 null
                                             ) : (
-                                                <Button variant="secondary">Edit</Button>
+                                                <Button className={styles.btn} variant="secondary" onClick={(e) => {this.props.handleBtnEditClick(index)}}>Edit</Button>
                                             )
                                         }
-                                        <Button variant="danger" onClick={(e) => {this.props.deleteTodo(index);}} >Delete</Button>
+                                        <Button className={styles.btn} variant="danger" onClick={(e) => {this.props.deleteTodo(index);}} >Delete</Button>
                                     </td>
                                 </tr>
                             );

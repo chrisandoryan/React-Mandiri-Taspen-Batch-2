@@ -1,0 +1,21 @@
+.btn {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.todo-checkbox {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.todo-table {
+    width: 60%;
+}
+
+.action-cell {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

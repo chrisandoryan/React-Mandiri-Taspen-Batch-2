@@ -4,11 +4,15 @@ import TodoTable from '../components/TodoTable';
 import TodoForm from '../components/TodoForm';
 import TodoFormFunctional from '../components/TodoForm.functional';
 
+import '../styles/homepage.css';
 class Homepage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showAddTodoModal: false,
+            showFormModal: false,
+            todoToEdit: null,
+            todoToEditIndex: -1,
+            modalActionMode: "",
             todos: [
                 {
                     description: "Main Kelomang",
@@ -28,13 +32,42 @@ class Homepage extends React.Component {
 
     handleBtnAddTodoClick = () => {
         this.setState({
-            showAddTodoModal: true
+            showFormModal: true,
+            modalActionMode: "ADD"
         });
     }
 
     handleCloseModal = () => {
         this.setState({
-            showAddTodoModal: false
+            showFormModal: false,
+            todoToEdit: null,
+            modalAction: "",
+            todoToEditIndex: -1
+        });
+    }
+
+    handleBtnEditClick = (index) => {
+        let currTodos = [...this.state.todos];
+        let todo = currTodos[index];
+        console.log(todo);
+
+        this.setState({
+            todoToEdit: todo,
+            todoToEditIndex: index,
+            showFormModal: true,
+            modalActionMode: "EDIT"
+        });
+    }
+
+    saveEditedTodo = (todoDesc, todoDeadline) => {
+        let currTodos = [...this.state.todos];
+        let todo = currTodos[this.state.todoToEditIndex];
+        todo.description = todoDesc;
+        todo.deadline = todoDeadline;
+
+        currTodos[this.state.todoToEditIndex] = todo;
+        this.setState({
+            todos: currTodos
         });
     }
 
@@ -76,15 +109,19 @@ class Homepage extends React.Component {
                 <div className='header-section'>
                     <Header />
                 </div>
-                <div className='todolist-section'>
+                <div id='todolist-section'>
                     <TodoTable todos={this.state.todos} handleBtnAddTodoClick={this.handleBtnAddTodoClick}
+                    handleBtnEditClick={this.handleBtnEditClick}
                     markTodoAsDone={this.markTodoAsDone}
                     deleteTodo={this.deleteTodo} />
                 </div>
                 <TodoFormFunctional 
-                    show={this.state.showAddTodoModal}
+                    show={this.state.showFormModal}
                     saveNewTodo={this.saveNewTodo}
+                    saveEditedTodo={this.saveEditedTodo}
                     handleCloseModal={this.handleCloseModal}
+                    todoToEdit={this.state.todoToEdit}
+                    modalActionMode={this.state.modalActionMode}
                 />
             </div>
         )
